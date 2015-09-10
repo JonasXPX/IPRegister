@@ -2,6 +2,8 @@ package me.jonasxpx.ipregister;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,7 +17,14 @@ public class ManagerIP {
 	
 	public static boolean registerPlayerIP(String playerName, String IP){
 		FileConfiguration conf = YamlConfiguration.loadConfiguration(new File(IPRegister.dir));
-		conf.set("Registred."+playerName.toLowerCase(), formatIP(IP));
+		if(IP.contains(",")){
+			List<String> listIP = new ArrayList<>();
+			for(String ips : IP.split(",")){
+				listIP.add(formatIP(ips));
+			}
+			conf.set("Registred."+playerName.toLowerCase(), listIP);
+		}else
+			conf.set("Registred."+playerName.toLowerCase(), formatIP(IP));
 		try {
 			conf.save(new File(IPRegister.dir));
 			return true;
