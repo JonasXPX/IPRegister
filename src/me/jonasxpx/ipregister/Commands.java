@@ -12,6 +12,10 @@ public class Commands implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2,
 			String[] args) {
+		if(!(sender.isOp() || sender.hasPermission("ipregister.allow"))){
+			sender.sendMessage("§cYou don't have permissions for this!");
+			return true;
+		}
 		if(args.length == 3){
 			if(args[0].equalsIgnoreCase("register")){
 				if(args[1] != null || args[2] != null){
