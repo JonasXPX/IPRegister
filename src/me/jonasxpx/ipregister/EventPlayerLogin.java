@@ -29,5 +29,4 @@ public class EventPlayerLogin implements Listener{
 		}.runTaskLater(plugin, 1);
 	}
 	
-	
 }

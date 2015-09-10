@@ -43,5 +43,6 @@ public class ManagerPlayer {
 		}
 		return false;
 	}
+
 	
 }

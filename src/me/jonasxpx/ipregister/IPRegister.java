@@ -3,10 +3,8 @@ package me.jonasxpx.ipregister;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class IPRegister extends JavaPlugin{
-	
-	
+
 	public static String dir = "";
-	
 	
 	@Override
 	public void onEnable() {

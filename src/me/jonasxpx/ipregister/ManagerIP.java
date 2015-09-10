@@ -13,7 +13,6 @@ public class ManagerIP {
 		return player.getAddress().getHostString();
 	}
 	
-	
 	public static boolean registerPlayerIP(String playerName, String IP){
 		FileConfiguration conf = YamlConfiguration.loadConfiguration(new File(IPRegister.dir));
 		conf.set("Registred."+playerName.toLowerCase(), formatIP(IP));
