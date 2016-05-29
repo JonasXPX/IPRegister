@@ -14,10 +14,8 @@ public class EventPlayerLogin implements Listener{
 	
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void playerLoginEvent_pre(PlayerLoginEvent e){
-		System.out.println(e.getAddress().getHostAddress());
 		if(ManagerPlayer.isRegistred(e.getPlayer())){
 			if(!ManagerPlayer.isEqualIP(e.getPlayer().getName(), e.getAddress().getHostAddress())){
-				System.out.println("Result");
 				e.setResult(Result.KICK_OTHER);
 				e.setKickMessage("§cSeu IP não é o mesmo cadastrado no sistema para logar neste Nick");
 				return;

@@ -46,14 +46,12 @@ public class ManagerPlayer {
 		FileConfiguration conf = YamlConfiguration.loadConfiguration(new File(IPRegister.dir));
 		if(conf.isList("Registred."+player.toLowerCase())){
 			List<String> ip = conf.getStringList("Registred."+player.toLowerCase());
-			System.out.println("DEBUG: "+ip.toString());
 			if(ip.contains(ManagerIP.formatIP(IP)))
 				return true;
 			else
 				return false;
 		}else{
 			String ip = conf.getString("Registred."+player.toLowerCase());
-			System.out.println("DEBUG1: "+ip);
 			if(ip.equalsIgnoreCase(ManagerIP.formatIP(IP)))
 				return true;
 			else
