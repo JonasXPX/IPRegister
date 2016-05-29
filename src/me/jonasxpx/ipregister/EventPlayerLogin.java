@@ -3,8 +3,8 @@ package me.jonasxpx.ipregister;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 public class EventPlayerLogin implements Listener{
 
@@ -12,23 +12,14 @@ public class EventPlayerLogin implements Listener{
 	
 	public EventPlayerLogin(IPRegister plugin){this.plugin = plugin;}
 	
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void playerLoginEvent(final PlayerJoinEvent e){
-		new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				if(ManagerPlayer.isRegistred(e.getPlayer()))
-				{
-					if(!ManagerPlayer.isEqualIP(e.getPlayer(), ManagerIP.formatIP(ManagerIP.getPlayerIp(e.getPlayer())))){
-						e.getPlayer().kickPlayer("§cSeu IP não é o mesmo cadastrado no sistema para logar neste Nick");
-					}
-				}
-			
-				
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void playerLoginEvent_pre(PlayerLoginEvent e){
+		if(ManagerPlayer.isRegistred(e.getPlayer())){
+			if(!ManagerPlayer.isEqualIP(e.getPlayer(), e.getAddress().getHostAddress())){
+				e.setResult(Result.KICK_OTHER);
+				e.setKickMessage("§cSeu IP não é o mesmo cadastrado no sistema para logar neste Nick");
+				return;
 			}
-		}.runTaskLater(this.plugin, 20*2);
-				
+		}
 	}
-	
 }

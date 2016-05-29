@@ -42,6 +42,24 @@ public class ManagerPlayer {
 				return false;
 		}
 	}
+	public static boolean isEqualIP(String player, String IP){
+		FileConfiguration conf = YamlConfiguration.loadConfiguration(new File(IPRegister.dir));
+		if(conf.isList("Registred."+player.toLowerCase())){
+			List<String> ip = conf.getStringList("Registred."+player.toLowerCase());
+			if(ip.contains(IP))
+				return true;
+			else
+				return false;
+		}else{
+			String ip = conf.getString("Registred."+player.toLowerCase());
+			if(ip.equalsIgnoreCase(IP))
+				return true;
+			else
+				return false;
+		}
+	}
+	
+	
 	
 	public static boolean unregister(String player) throws IOException{
 		if(isRegistred(player)){
