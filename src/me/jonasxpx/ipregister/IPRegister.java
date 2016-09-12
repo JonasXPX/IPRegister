@@ -12,19 +12,17 @@ public class IPRegister extends JavaPlugin{
 	protected static IPDataBase db;
 	@Override
 	public void onEnable() {
-		saveConfig();
 		dir = this.getDataFolder().getPath() + "\\config.yml";
 		getCommand("ipregister").setExecutor(new Commands());
 		getServer().getPluginManager().registerEvents(new EventPlayerLogin(), this);
-		if(!new File(dir).exists()){
-			getConfig().options().copyDefaults(true);
-		}
+		getConfig().options().copyDefaults(true);
+		saveConfig();
 		useDatabase = getConfig().getBoolean("usedatabase");
 		if(useDatabase)
 			db = new IPDataBase(getConfig().getString("Database.address").trim(), 
 					getConfig().getString("Database.port").trim(), 
 					getConfig().getString("Database.database").trim(),
-					getConfig().getString("Database.user").trim(), 
+					getConfig().getString("Database.username").trim(), 
 					getConfig().getString("Database.password").trim());
 	}	
 	
