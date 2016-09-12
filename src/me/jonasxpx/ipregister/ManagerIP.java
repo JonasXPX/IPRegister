@@ -16,24 +16,28 @@ public class ManagerIP {
 	}
 	
 	public static boolean registerPlayerIP(String playerName, String IP){
-		FileConfiguration conf = YamlConfiguration.loadConfiguration(new File(IPRegister.dir));
-		if(IP.contains(",")){
-			List<String> listIP = new ArrayList<>();
-			for(String ips : IP.split(",")){
-				listIP.add(formatIP(ips));
-			}
-			conf.set("Registred."+playerName.toLowerCase(), listIP);
-		}else
-			conf.set("Registred."+playerName.toLowerCase(), formatIP(IP));
-		try {
-			conf.save(new File(IPRegister.dir));
+		if(IPRegister.useDatabase){
+			IPRegister.db.toggleIP(playerName, IP);
 			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
+		}else{
+			FileConfiguration conf = YamlConfiguration.loadConfiguration(new File(IPRegister.dir));
+			if(IP.contains(",")){
+				List<String> listIP = new ArrayList<>();
+				for(String ips : IP.split(",")){
+					listIP.add(formatIP(ips));
+				}
+				conf.set("Registred."+playerName.toLowerCase(), listIP);
+			}else
+				conf.set("Registred."+playerName.toLowerCase(), formatIP(IP));
+			try {
+				conf.save(new File(IPRegister.dir));
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return false;
 		}
-		return false;
 	}
-	
 	
 	public static String formatIP(String IP){
 		if(IP.indexOf(":") != -1)
@@ -41,10 +45,4 @@ public class ManagerIP {
 		else
 			return IP.replace(".", "-");
 	}
-	
-	public static void main(String[] args) {
-		String ip = "192.168.2.100";
-		System.out.println(formatIP(ip));
-	}
-	
 }

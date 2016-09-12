@@ -20,7 +20,7 @@ public class Commands implements CommandExecutor{
 		if(args.length == 3){
 			if(args[0].equalsIgnoreCase("register")){
 				if(args[1] != null || args[2] != null){
-					if(ManagerIP.registerPlayerIP(args[1], ManagerIP.formatIP(args[2])))
+					if(ManagerIP.registerPlayerIP(args[1], args[2]))
 						sender.sendMessage("§aJogador cadastrado!");
 					else
 						sender.sendMessage("§cFalha!");

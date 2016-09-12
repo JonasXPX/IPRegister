@@ -1,0 +1,7 @@
+usedatabase: true
+Database:
+   address: localhost
+   port: 3306
+   database: ipregister
+   username: root
+   password: ''
